@@ -73,17 +73,20 @@ public class User {
     this.actualConnections = actualConnections;
   }
 
-  public Boolean isWatchingSomethingInteresting() {
-    if (actualResourceWatching.isInteresting()) {
+  public Boolean isWatchingSomethingInteresting() {    
+    return isInterestedIn(actualResourceWatching);
+  }
+  public Boolean isInterestedIn(Resource resource) {
+    if (resource.isInteresting()) {
       return true;
     }
-    if (actualResourceWatching.getResourceType() == ResourceType.MOVIE) {
-      if (moodState == MoodState.SAD && actualResourceWatching.getDurationMinutes() >= 120) {
+    if (resource.getResourceType() == ResourceType.MOVIE) {
+      if (moodState == MoodState.SAD && resource.getDurationMinutes() >= 120) {
         return true;
       } else if (moodState == MoodState.HAPPY) {
         return true;
       } else if (moodState == MoodState.MELANCHOLIC
-          && (ZonedDateTime.now().getYear() - actualResourceWatching.getReleaseYear()) >= 10) {// aclarar tecnisismo
+          && (ZonedDateTime.now().getYear() - resource.getReleaseYear()) >= 10) {// aclarar tecnisismo
                                                                                                // "hace más de 10
                                                                                                // años"
         return true;
