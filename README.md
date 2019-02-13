@@ -9,3 +9,5 @@ Esta pendiente la validacion de si un año de antiguedad de 10 años ya que no s
 
 no se construyo la parte de sugerencias del systema
 Pero seria facil simpelemnte recorriendo la una lista de recursos disponibles y usando el metodo de usuario isInterestedIn(Resource r)
+
+Personalmente prefiero mas una arquitectura de capas pero en este caso la estructura fue fluyendo mediante discovery, ya que esta es una aplicacion de pruebas.

@@ -1,7 +1,5 @@
 package com.uala.model;
 
-import java.time.ZonedDateTime;
-
 public class Award {
   
   private String name;
