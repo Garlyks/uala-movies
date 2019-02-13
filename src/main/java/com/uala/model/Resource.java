@@ -13,10 +13,6 @@ public class Resource {
   private ResourceType resourceType;
   private Integer durationMinutes;
   
-  
-  
-  
-  
   public Resource() {
     title="";
     awards=new ArrayList<>();

@@ -1,6 +1,11 @@
 package com.uala.model;
 
+import java.math.BigDecimal;
 import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 public class User {
 
@@ -60,6 +65,14 @@ public class User {
     this.actualResourceWatching = actualResourceWatching;
   }
 
+  public Integer getActualConnections() {
+    return actualConnections;
+  }
+
+  public void setActualConnections(Integer actualConnections) {
+    this.actualConnections = actualConnections;
+  }
+
   public Boolean isWatchingSomethingInteresting() {
     if (actualResourceWatching.isInteresting()) {
       return true;
@@ -79,9 +92,65 @@ public class User {
 
     return false;
   }
-  //returns payment id
-  public Integer paySubscription() {
-    return 0;
+
+  /**
+   * this should calculate and automatic debit the ammount
+   * 
+   * @param payment
+   *          type used
+   * @return the paymentId
+   */
+  public String paySubscription(PaymentType paymentType) {
+    suscription.setEndDate(suscription.getEndDate().plusMonths(1));
+    List<Discount> discounts = new ArrayList<>();
+    BigDecimal paymentValue = BigDecimal.valueOf(suscription.getCost());
+
+    if (paymentType == PaymentType.PAYPAL) {
+      discounts.add(new Discount(UUID.randomUUID().toString(), "PAYPAL", 2d));
+      paymentValue.subtract(paymentValue.multiply(BigDecimal.valueOf(0.02d)));
+    }
+
+    long yearsRegistered = suscription.getStartDate().until(ZonedDateTime.now(), ChronoUnit.YEARS);
+    if (yearsRegistered > 0) {
+      discounts.add(new Discount(UUID.randomUUID().toString(), "PAYPAL", Double.valueOf(yearsRegistered * 3)));
+      paymentValue.subtract(paymentValue.multiply(BigDecimal.valueOf(yearsRegistered * 3 / 100)));
+    }
+    Payment payment = new Payment(paymentValue, paymentType, discounts);
+    suscription.addPayment(payment);
+    return payment.getId();
+  }
+
+  /**
+   * this method start a new session
+   * 
+   * @return if was suscesfull
+   */
+  public Boolean startSession() {
+    
+    //validate active connections
+    switch (suscription.getSuscriptionType()) {
+    case CLASSIC:
+      if(actualConnections>0) {
+        return false;
+      }
+      break;
+    case GOLD:
+      if(actualConnections>=3) {
+        return false;
+      }
+      break;
+    case PLATINIUM:
+      if(actualConnections>=5) {
+        return false;
+      }
+      break;
+    }
+    //validate suscription time
+    if(suscription.getEndDate().isBefore(ZonedDateTime.now())) {
+      return false;
+    }
+    actualConnections++;
+    return true;
   }
 
 }

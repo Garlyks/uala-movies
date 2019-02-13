@@ -1,6 +1,7 @@
 package com.uala.model;
 
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Suscription {
@@ -9,10 +10,12 @@ public class Suscription {
   private SuscriptionType suscriptionType;
   private List<Payment> payments;
   private Double cost;
-  public Suscription(ZonedDateTime startDate, ZonedDateTime endDate, SuscriptionType suscriptionType) {
+  
+  public Suscription(ZonedDateTime startDate, SuscriptionType suscriptionType) {
     this.startDate = startDate;
-    this.endDate = endDate;
+    this.endDate = startDate;
     this.suscriptionType = suscriptionType;
+    this.payments = new ArrayList<>();
     if(suscriptionType==SuscriptionType.CLASSIC) {
       cost=100d;
     }else if(suscriptionType==SuscriptionType.GOLD) {
@@ -20,7 +23,11 @@ public class Suscription {
     }else if(suscriptionType==SuscriptionType.GOLD) {
       cost=300d;
     }
-  }
+  }  
+  
+  public void addPayment(Payment payment) {
+    payments.add(payment);
+  }  
   public ZonedDateTime getStartDate() {
     return startDate;
   }
@@ -51,7 +58,5 @@ public class Suscription {
   public void setCost(Double cost) {
     this.cost = cost;
   }
-  
-  
   
 }
