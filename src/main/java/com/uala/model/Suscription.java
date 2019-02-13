@@ -8,4 +8,50 @@ public class Suscription {
   private ZonedDateTime endDate;
   private SuscriptionType suscriptionType;
   private List<Payment> payments;
+  private Double cost;
+  public Suscription(ZonedDateTime startDate, ZonedDateTime endDate, SuscriptionType suscriptionType) {
+    this.startDate = startDate;
+    this.endDate = endDate;
+    this.suscriptionType = suscriptionType;
+    if(suscriptionType==SuscriptionType.CLASSIC) {
+      cost=100d;
+    }else if(suscriptionType==SuscriptionType.GOLD) {
+      cost=200d;
+    }else if(suscriptionType==SuscriptionType.GOLD) {
+      cost=300d;
+    }
+  }
+  public ZonedDateTime getStartDate() {
+    return startDate;
+  }
+  public void setStartDate(ZonedDateTime startDate) {
+    this.startDate = startDate;
+  }
+  public ZonedDateTime getEndDate() {
+    return endDate;
+  }
+  public void setEndDate(ZonedDateTime endDate) {
+    this.endDate = endDate;
+  }
+  public SuscriptionType getSuscriptionType() {
+    return suscriptionType;
+  }
+  public void setSuscriptionType(SuscriptionType suscriptionType) {
+    this.suscriptionType = suscriptionType;
+  }
+  public List<Payment> getPayments() {
+    return payments;
+  }
+  public void setPayments(List<Payment> payments) {
+    this.payments = payments;
+  }
+  public Double getCost() {
+    return cost;
+  }
+  public void setCost(Double cost) {
+    this.cost = cost;
+  }
+  
+  
+  
 }

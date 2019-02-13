@@ -1,9 +1,10 @@
 package com.uala.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public abstract class Resource {
+public class Resource {
   
   private String title;
   private List<Award> awards;
@@ -14,6 +15,18 @@ public abstract class Resource {
   
   
   
+  
+  
+  public Resource() {
+    title="";
+    awards=new ArrayList<>();
+    releaseYear = 0;
+    seasons = 0;
+    durationMinutes = 0;
+  }
+
+
+
   public String getTitle() {
     return title;
   }

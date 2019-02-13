@@ -5,7 +5,7 @@ import java.time.ZonedDateTime;
 public class Award {
   
   private String name;
-  private Integer receiveYear;
+  private int receiveYear;
   
   public String getName() {
     return name;

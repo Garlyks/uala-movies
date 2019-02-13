@@ -10,5 +10,6 @@ public class Payment {
   private List<Discount> discounts;
   private ZonedDateTime paymentDate;
   
+  
 
 }
