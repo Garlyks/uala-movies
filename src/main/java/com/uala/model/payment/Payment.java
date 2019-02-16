@@ -17,14 +17,12 @@ public class Payment {
   private Double discountRate;
   private List<Discount> discounts = new ArrayList<>();
   private PayMethod payMethod;
-  private PaymentStatus status;
   
   public Payment(PayMethod payMethod) {
     totalAmmount = BigDecimal.ZERO;
     discountedAmmount = BigDecimal.ZERO;
     discounts = new ArrayList<>();
     this.payMethod=payMethod;
-    status = PaymentStatus.CREATED;
   }
   
   public BigDecimal getNetAmmount() {
